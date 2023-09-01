@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Explorer Assignment</title>
+  <link rel="stylesheet" href="page.css">
+</head>
+<body>
+  <article>
+    <nav>
+      <button id="main-btn" onclick="buttonClicked('main-btn')"><i id="icon" class="fa-solid fa-angle-right arrows-main-btn"></i>My File Name</button>
+      <span>
+        <button onclick="addFile(0)"><i class="fa-solid fa-file-circle-plus"></i></button>
+        <button onclick="addFolder(0)"><i class="fa-solid fa-folder-plus"></i></button>
+      </span>
+    </nav>
+    <ul id="main-list">
+
+    </ul>
+  </article>
+  <script src="https://kit.fontawesome.com/1137d2b7af.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+body{
+  background-color: #1F1F1F;
+  color: #d6d6d6;
+}
+article{
+  background-color: #252525;
+  width: 50%;
+}
+li{
+  list-style: none;
+}
+i{
+  color: #d6d6d6;
+  margin-right: 0.5rem;
+}
+ul{
+  padding: 0;
+}
+button{
+  background-color: transparent;
+  border-style: none;
+  color: #d6d6d6;
+}
+nav > span{
+  margin-left: 14rem;
+}
+nav > p{
+  display: inline-block;
+  margin: 0 1rem;
+}
