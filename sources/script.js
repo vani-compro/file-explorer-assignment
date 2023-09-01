@@ -1,4 +1,3 @@
-
 const file_structure = {
   files: [],
   folders: []
@@ -27,13 +26,14 @@ function buttonClicked(id){
 }
 function addFile(num){
   // const fileId = 'file' + num
-  if(num === -1){
+  if(num === 0){
     const i = document.createElement("i");
     i.classList.add('fa-solid');
     i.classList.add('fa-file');
     // i.classList.add('arrows');
 
     const form = document.createElement('form');
+    form.style.display='inline-block';
 
     const input = document.createElement('input');
     input.type='text';
@@ -73,8 +73,8 @@ function addFile(num){
 
 function addFolder(num){
   const randomNumber = Math.floor(Math.random()*10000)+1;
-  if(num === -1){
-    const folderId = 'folder' + (num+1) + '-' + randomNumber;
+  if(num === 0){
+    const folderId = 'folder' + num + '-' + randomNumber;
 
     const iArrow = document.createElement('i');
     iArrow.classList.add('fa-solid');
@@ -86,7 +86,7 @@ function addFolder(num){
     // i.classList.add('arrows');
 
     const form = document.createElement('form');
-
+    form.style.display='inline-block';
     const input = document.createElement('input');
     input.type='text';
 
@@ -100,25 +100,28 @@ function addFolder(num){
     let inputValue = '';
 
     // const addFileBtn
+    const iFilebtn = document.createElement('button');
     const iFile = document.createElement('i');
-    const addFileBtn = document.createElement('button');
-    addFileBtn.appendChild(iFile);
     iFile.setAttribute('class', 'fa-solid fa-file-circle-plus');
-
+    iFilebtn.style.position='absolute';
+    iFilebtn.appendChild(iFile);
     // <i class="fa-solid fa-file-circle-plus"></i>
 
+    const iFolder2btn = document.createElement('button');
     const iFolder2 = document.createElement('i');
-    const addFolder2Btn = document.createElement('button');
-    addFolder2Btn.appendChild(iFolder2);
     iFolder2.setAttribute('class', 'fa-solid fa-folder-plus');
+    iFolder2btn.style.position='absolute';
+    iFolder2btn.appendChild(iFolder2);
 
-    addFileBtn.style.position='absolute';
-    addFolder2Btn.style.position='absolute';
-    addFileBtn.style.right='37rem';
-    addFolder2Btn.style.right='35rem';
-    const nodeBtn = document.createElement('button');
-    nodeBtn.addEventListener('click', buttonClicked);
+    iFilebtn.style.right='37rem';
+    iFolder2btn.style.right='35rem';
+
+    iFilebtn.addEventListener(addFile(num+1));
+    iFolder2btn.addEventListener(addFolder(num+1));
+
+
     const node = document.createElement('li');
+    const nodeBtn = document.createElement('button');
     // node.style.display='block';
     let textnode = '';
     form.addEventListener('submit', function(event) {
@@ -135,25 +138,21 @@ function addFolder(num){
 
       textnode = document.createTextNode(inputValue);
       nodeBtn.appendChild(textnode);
+      nodeBtn.appendChild(iFilebtn);
+      nodeBtn.appendChild(iFolder2btn);
 
-      nodeBtn.appendChild(addFileBtn);
-      nodeBtn.appendChild(addFolder2Btn);
-      
       // node.style.display='block';
       form.style.display = 'none';
       // iFile.style.marginLeft='16.2rem';
     });
-     // adding files to file structure
+    // adding files to file structure
     //  inputValue = JSON.parse(inputValue);
-
-
-
 
     nodeBtn.appendChild(iArrow);
     nodeBtn.appendChild(iFolder);
     nodeBtn.appendChild(form);
+    // // const nodeBtn = document.createElement('button');
     node.appendChild(nodeBtn);
-    // nodeBtn.setAttribute('id', )
     // node.style.display='inline-block';
 
         // node.setAttribute('id', '1-1-btn');
