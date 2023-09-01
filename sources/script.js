@@ -27,7 +27,7 @@ function buttonClicked(id){
 }
 function addFile(num){
   // const fileId = 'file' + num
-  if(num === 0){
+  if(num === -1){
     const i = document.createElement("i");
     i.classList.add('fa-solid');
     i.classList.add('fa-file');
@@ -73,8 +73,8 @@ function addFile(num){
 
 function addFolder(num){
   const randomNumber = Math.floor(Math.random()*10000)+1;
-  if(num === 0){
-    const folderId = 'folder' + num + '-' + randomNumber;
+  if(num === -1){
+    const folderId = 'folder' + (num+1) + '-' + randomNumber;
 
     const iArrow = document.createElement('i');
     iArrow.classList.add('fa-solid');
@@ -101,16 +101,23 @@ function addFolder(num){
 
     // const addFileBtn
     const iFile = document.createElement('i');
+    const addFileBtn = document.createElement('button');
+    addFileBtn.appendChild(iFile);
     iFile.setAttribute('class', 'fa-solid fa-file-circle-plus');
-    iFile.style.position='absolute';
+
     // <i class="fa-solid fa-file-circle-plus"></i>
 
     const iFolder2 = document.createElement('i');
+    const addFolder2Btn = document.createElement('button');
+    addFolder2Btn.appendChild(iFolder2);
     iFolder2.setAttribute('class', 'fa-solid fa-folder-plus');
-    iFolder2.style.position='absolute';
-    iFile.style.right='37rem';
-    iFolder2.style.right='35rem';
 
+    addFileBtn.style.position='absolute';
+    addFolder2Btn.style.position='absolute';
+    addFileBtn.style.right='37rem';
+    addFolder2Btn.style.right='35rem';
+    const nodeBtn = document.createElement('button');
+    nodeBtn.addEventListener('click', buttonClicked);
     const node = document.createElement('li');
     // node.style.display='block';
     let textnode = '';
@@ -127,9 +134,10 @@ function addFolder(num){
       console.log(file_structure.folders);
 
       textnode = document.createTextNode(inputValue);
-      node.appendChild(textnode);
-      node.appendChild(iFile);
-      node.appendChild(iFolder2);
+      nodeBtn.appendChild(textnode);
+
+      nodeBtn.appendChild(addFileBtn);
+      nodeBtn.appendChild(addFolder2Btn);
       
       // node.style.display='block';
       form.style.display = 'none';
@@ -141,11 +149,11 @@ function addFolder(num){
 
 
 
-    node.appendChild(iArrow);
-    node.appendChild(iFolder);
-    node.appendChild(form);
-    // // const nodeBtn = document.createElement('button');
-    // // nodeBtn.appendChild(node);
+    nodeBtn.appendChild(iArrow);
+    nodeBtn.appendChild(iFolder);
+    nodeBtn.appendChild(form);
+    node.appendChild(nodeBtn);
+    // nodeBtn.setAttribute('id', )
     // node.style.display='inline-block';
 
         // node.setAttribute('id', '1-1-btn');
