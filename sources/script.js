@@ -4,20 +4,20 @@ const file_structure = {
 }
 
 function buttonClicked(id, level){
-console.log('btn clicked for: ' + id);
+  console.log('btn clicked for: ' + id);
 
   //createUL
-  const btn = document.querySelector('#'+id);
+  const btn = event.target;
+  // console.log(event.target.children.contains(ul));
   let ul = document.querySelector('#'+id+'-ul');
   if (btn.contains(ul)){
   }else{
     ul = createUl(btn, id);
   }
 
-  for(let i = 0; i <= level; i++){
+  for(let i = 1; i <= level+1; i++){
     ul.style.marginLeft = `${(i+1)}rem`
   }
-
   //arrow down
   let arrow = document.querySelector('.arrows-'+id);
   arrow.classList.toggle('fa-angle-right');
@@ -40,6 +40,8 @@ function createUl(btn, id){
 }
 
 function addFile(location, level, id){
+  console.log(event);
+  event;
   const ul = document.querySelector('#'+id+'-ul');
   const li = document.createElement('li');
 
@@ -153,14 +155,9 @@ function addFolder(location, level, id){
     location["folders"].push(obj);
 
     createFileIcon.addEventListener('click', function(){
-      // for(let i = 0; i<=10000; i++){
-        // location['files'][i][`${inputValue}`]){
-          const loc = location['files'];
-          console.log(loc);
-          addFile(loc, level+1, 'btn-'+(level+1));
-          // break;
-        // }
-      // }
+      const loc = location['files'];
+      console.log(loc);
+      addFile(loc, level+1, 'btn-'+(level+1));
     });
 
     createFolderIcon.addEventListener('click', function(){
@@ -172,19 +169,7 @@ function addFolder(location, level, id){
           break;
         }
       }
-
     });
-
-
-
-
-
-
-
-
-
-
-
 
     console.log(file_structure);
     console.log(file_structure['folders'][0][1]);
