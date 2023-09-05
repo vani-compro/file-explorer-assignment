@@ -11,7 +11,6 @@ li{
 }
 i{
   color: #d6d6d6;
-  margin-right: 0.5rem;
 }
 ul{
   padding: 0;
@@ -22,9 +21,13 @@ button{
   color: #d6d6d6;
 }
 nav > span{
-  margin-left: 14rem;
+  margin-left: 12rem;
 }
 nav > p{
   display: inline-block;
   margin: 0 1rem;
+}
+
+.level0{
+  /* background-color: red; */
 }
