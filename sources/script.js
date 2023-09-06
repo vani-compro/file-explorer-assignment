@@ -28,12 +28,12 @@ function buttonClicked(event, level, id){
 }
 
 function createUl(parentUl, level){
-  console.log('createUl() called on level: ' + level + " and parentUl as: ");
-  console.log(parentUl);
+  // console.log('createUl() called on level: ' + level + " and parentUl as: ");
+  // console.log(parentUl);
   const childUl = document.createElement('ul');
   parentUl.appendChild(childUl);
   childUl.setAttribute('id','level'+(level+1));
-  childUl.style.marginLeft=`${level+1}rem`;
+  childUl.style.marginLeft='1rem';
   return childUl;
 }
 
@@ -57,6 +57,7 @@ function addFile(location, level){
   fileIcon.classList.add('fa-file');
 
   const fileNameForm = document.createElement('form');
+  fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
   const submitFileNameBtn =  document.createElement('input');
@@ -93,20 +94,15 @@ function addFolder(location, level){
 
 
   let ul = null;
-  // console.log(event);
   const parentUl = (event.target.parentElement.parentElement);
-  // console.log(parentUl);
   const childUl = parentUl.querySelector('ul');
-  // console.log(childUl);
-  // console.log(childUl);
 
   if(!childUl){
-    // console.log(('working2'));
     ul = createUl(parentUl, level);
   }else{
-    // console.log('ul created in addfolder');
     ul=childUl;
   }
+
   const li = document.createElement('li');
   let listId = Math.ceil(Math.random()*10000);
   li.setAttribute('id', listId);
@@ -123,6 +119,7 @@ function addFolder(location, level){
   folderIcon.classList.add('fa-folder');
 
   const fileNameForm = document.createElement('form');
+  fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
   const submitFileNameBtn =  document.createElement('input');
@@ -185,10 +182,9 @@ function addFolder(location, level){
     location["folders"].push(obj);
 
     createFileIcon.addEventListener('click', function(e){
-      for(let i = 0; i<=10000; i++){
+      for(let i = 0; i<location['folders'].length; i++){
         if (location['folders'][i][`${inputValue}`]){
           const loc = location['folders'][i][`${inputValue}`];
-          // console.log(location['folders'][i]);
           addFile(loc, level+1);
           break;
         }
@@ -196,18 +192,14 @@ function addFolder(location, level){
     });
 
     createFolderIcon.addEventListener('click', function(e){
-      for(let i = 0; i<=10000; i++){
+      for(let i = 0; i<location['folders'].length; i++){
         if (location['folders'][i][`${inputValue}`]){
           const loc = location['folders'][i][`${inputValue}`];
-          // console.log(location['folders'][i]);
           addFolder(loc, level+1);
           break;
         }
       }
     });
 
-
-    // console.log(file_structure);
-    // console.log(file_structure['folders'][0][1]);
   });
 }
