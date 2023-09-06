@@ -16,9 +16,7 @@ function buttonClicked(event, level, id){
   arrow.classList.toggle('fa-angle-down');
   const childUl = ul.querySelector('#ul'+id);
   if(!childUl){
-    // console.log('inside button clicked if !childUl for btn: ' + btn);
   }else{
-    // console.log('inside button clicked else !childUl for btn: '+btn);
     if(arrow.classList.contains('fa-angle-right')){
       childUl.style.display='none';
     }else{
@@ -27,31 +25,11 @@ function buttonClicked(event, level, id){
   }
 }
 
-// function createUl(parentUl, level){
-//   // console.log('createUl() called on level: ' + level + " and parentUl as: ");
-//   // console.log(parentUl);
-//   const childUl = document.createElement('ul');
-//   parentUl.appendChild(childUl);
-//   childUl.setAttribute('id','level'+(level+1));
-  // childUl.style.marginLeft='1rem';
-//   return childUl;
-// }
-
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 function addFile(location, level, listId){
-  // let ul = null;
   const parentUl = (event.target.parentElement.parentElement);
-  const ul = parentUl.querySelector('ul');
-  ul.style.marginLeft='1rem';
-
-  // if(!childUl){
-  //   // console.log(('working'));
-  //   ul = createUl(parentUl, level);
-  // }else{
-  //   console.log('hi');
-  //   ul=childUl;
-  // }
+  const ul = parentUl.querySelector('#ul'+listId);
+  ul.style.marginLeft=`${level+1}rem`;
 
   const li = document.createElement('li');
 
@@ -71,8 +49,6 @@ function addFile(location, level, listId){
   fileNameForm.style.display='inline';
   li.appendChild(fileIcon);
   li.appendChild(fileNameForm);
-  // let additionToId = Math.ceil(Math.random()*10000);
-  // li.setAttribute('id', '0-'+additionToId);
   ul.appendChild(li);
 
   //on submit
@@ -80,21 +56,16 @@ function addFile(location, level, listId){
     event.preventDefault(); // Prevent the form from submitting
 
     const inputValue = textbox.value;
-    // console.log(inputValue + ' file created under ul with level: ' + level);
 
     let textnode = document.createTextNode(inputValue);
     li.appendChild(textnode);
     li.classList.add('level'+(level+1));
     fileNameForm.style.display = 'none';
-    // console.log(location);
     location['files'].push(`${inputValue}`);
-    // console.log(file_structure);
   });
 }
 
 function addFolder(location, level, listId){
-
-
 
   const parentUl = (event.target.parentElement);
   const ul = parentUl.querySelector('ul');
@@ -111,7 +82,6 @@ function addFolder(location, level, listId){
   arrow.classList.add('fa-solid');
   arrow.classList.add('fa-angle-right');
   arrow.classList.add('arrows-'+(listId));
-  // console.log(arrow.classList);
 
   const folderIcon = document.createElement("i");
   folderIcon.classList.add('fa-solid');
@@ -144,11 +114,8 @@ function addFolder(location, level, listId){
     folderIcon2.classList.add('fa-folder');
 
     const inputValue = textbox.value;
-    // console.log(inputValue + ' folder created under ul with level: ' + level);
 
     const folderListBtn = document.createElement('button');
-    // folderListBtn.classList.add('level'+(level+1));
-    // console.log(folderListBtn.getAttribute('id'));
 
     let textnode = document.createTextNode(inputValue);
 
