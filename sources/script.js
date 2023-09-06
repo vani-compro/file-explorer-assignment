@@ -15,6 +15,7 @@ function buttonClicked(event, level, id){
   arrow.classList.toggle('fa-angle-right');
   arrow.classList.toggle('fa-angle-down');
   const childUl = ul.querySelector('#ul'+id);
+  childUl.style.marginLeft='1rem';
   if(!childUl){
   }else{
     if(arrow.classList.contains('fa-angle-right')){
@@ -29,7 +30,7 @@ function buttonClicked(event, level, id){
 function addFile(location, level, listId){
   const parentUl = (event.target.parentElement.parentElement);
   const ul = parentUl.querySelector('#ul'+listId);
-  ul.style.marginLeft=`${level+1}rem`;
+  // ul.style.marginLeft=`${level+1}rem`;
 
   const li = document.createElement('li');
 
@@ -43,7 +44,7 @@ function addFile(location, level, listId){
   textbox.type='text';
   const submitFileNameBtn =  document.createElement('input');
   submitFileNameBtn.type='submit';
-  submitFileNameBtn.value='Submit';
+  submitFileNameBtn.value='Add';
   fileNameForm.appendChild(textbox);
   fileNameForm.appendChild(submitFileNameBtn);
   fileNameForm.style.display='inline';
@@ -69,7 +70,7 @@ function addFolder(location, level, listId){
 
   const parentUl = (event.target.parentElement);
   const ul = parentUl.querySelector('ul');
-  ul.style.marginLeft='1rem';
+  // ul.style.marginLeft='1rem';
 
   console.log('folder created for level: ' + level);
 
@@ -93,7 +94,7 @@ function addFolder(location, level, listId){
   textbox.type='text';
   const submitFileNameBtn =  document.createElement('input');
   submitFileNameBtn.type='submit';
-  submitFileNameBtn.value='Submit';
+  submitFileNameBtn.value='Add';
 
   fileNameForm.appendChild(textbox);
   fileNameForm.appendChild(submitFileNameBtn);
