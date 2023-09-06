@@ -8,12 +8,15 @@ article{
 }
 li{
   list-style: none;
+  /* display: inline; */
 }
 i{
   color: #d6d6d6;
+  display: inline;
 }
 ul{
   padding: 0;
+  display: inline;
 }
 button{
   background-color: transparent;
@@ -28,7 +31,9 @@ nav > p{
   display: inline-block;
   margin: 0 1rem;
 }
-
+form{
+  display:inline;
+}
 .level0{
   /* background-color: red; */
 }

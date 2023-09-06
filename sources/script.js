@@ -8,13 +8,13 @@ function buttonClicked(event, level, id){
   console.log(event);
   const btn = event.target;
 
-  const ul = event.target.parentElement.parentElement;
+  const ul = event.target.parentElement.parentElement.parentElement.parentElement;
   console.log('id: ' + id);
   //arrow down
   let arrow = document.querySelector('.arrows-'+id);
   arrow.classList.toggle('fa-angle-right');
   arrow.classList.toggle('fa-angle-down');
-  const childUl = ul.querySelector('ul');
+  const childUl = ul.querySelector('#ul'+id);
   if(!childUl){
     // console.log('inside button clicked if !childUl for btn: ' + btn);
   }else{
@@ -27,28 +27,31 @@ function buttonClicked(event, level, id){
   }
 }
 
-function createUl(parentUl, level){
-  // console.log('createUl() called on level: ' + level + " and parentUl as: ");
-  // console.log(parentUl);
-  const childUl = document.createElement('ul');
-  parentUl.appendChild(childUl);
-  childUl.setAttribute('id','level'+(level+1));
-  childUl.style.marginLeft='1rem';
-  return childUl;
-}
+// function createUl(parentUl, level){
+//   // console.log('createUl() called on level: ' + level + " and parentUl as: ");
+//   // console.log(parentUl);
+//   const childUl = document.createElement('ul');
+//   parentUl.appendChild(childUl);
+//   childUl.setAttribute('id','level'+(level+1));
+  // childUl.style.marginLeft='1rem';
+//   return childUl;
+// }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-function addFile(location, level){
-  let ul = null;
+function addFile(location, level, listId){
+  // let ul = null;
   const parentUl = (event.target.parentElement.parentElement);
-  const childUl = parentUl.querySelector('ul');
-  if(!childUl){
-    // console.log(('working'));
-    ul = createUl(parentUl, level);
-  }else{
-    ul=childUl;
-  }
+  const ul = parentUl.querySelector('ul');
+  ul.style.marginLeft='1rem';
+
+  // if(!childUl){
+  //   // console.log(('working'));
+  //   ul = createUl(parentUl, level);
+  // }else{
+  //   console.log('hi');
+  //   ul=childUl;
+  // }
 
   const li = document.createElement('li');
 
@@ -89,22 +92,18 @@ function addFile(location, level){
   });
 }
 
-function addFolder(location, level){
+function addFolder(location, level, listId){
 
 
 
-  let ul = null;
-  const parentUl = (event.target.parentElement.parentElement);
-  const childUl = parentUl.querySelector('ul');
+  const parentUl = (event.target.parentElement);
+  const ul = parentUl.querySelector('ul');
+  ul.style.marginLeft='1rem';
 
-  if(!childUl){
-    ul = createUl(parentUl, level);
-  }else{
-    ul=childUl;
-  }
+  console.log('folder created for level: ' + level);
 
   const li = document.createElement('li');
-  let listId = Math.ceil(Math.random()*10000);
+  listId = Math.ceil(Math.random()*10000);
   li.setAttribute('id', listId);
 
 
@@ -132,6 +131,8 @@ function addFolder(location, level){
   li.appendChild(folderIcon);
   li.appendChild(fileNameForm);
 
+
+
   ul.appendChild(li);
 
   //on submit
@@ -146,7 +147,7 @@ function addFolder(location, level){
     // console.log(inputValue + ' folder created under ul with level: ' + level);
 
     const folderListBtn = document.createElement('button');
-    folderListBtn.classList.add('level'+(level+1));
+    // folderListBtn.classList.add('level'+(level+1));
     // console.log(folderListBtn.getAttribute('id'));
 
     let textnode = document.createTextNode(inputValue);
@@ -166,6 +167,10 @@ function addFolder(location, level){
     li.appendChild(folderListBtn);
     li.appendChild(createFileIcon);
     li.appendChild(createFolderIcon);
+    const childUl = document.createElement('ul');
+    childUl.setAttribute('id', 'ul'+listId);
+
+    li.appendChild(childUl);
 
     folderListBtn.addEventListener('click', function(e){
       buttonClicked(e, level+1, listId);
@@ -185,7 +190,7 @@ function addFolder(location, level){
       for(let i = 0; i<location['folders'].length; i++){
         if (location['folders'][i][`${inputValue}`]){
           const loc = location['folders'][i][`${inputValue}`];
-          addFile(loc, level+1);
+          addFile(loc, level+1, listId);
           break;
         }
       }
