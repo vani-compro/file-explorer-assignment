@@ -7,7 +7,7 @@ function buttonClicked(event, level){
   console.log('btn clicked for: ' + level);
 
   const btn = event.target;
-  // console.log(btn);
+  console.log(btn);
   // let ul;
   // if(level){
   //   ul = event.target.parentElement.parentElement.parentElement;
@@ -154,7 +154,7 @@ function addFolder(location, level){
 
     const folderListBtn = document.createElement('button');
     folderListBtn.classList.add('level'+(level+1));
-    // console.log(folderListBtn.getAttribute('id'));
+    console.log(folderListBtn.getAttribute('id'));
 
     let textnode = document.createTextNode(inputValue);
 
@@ -189,18 +189,18 @@ function addFolder(location, level){
     location["folders"].push(obj);
 
     createFileIcon.addEventListener('click', function(e){
-      const loc = location;
-      console.log(loc);
-      addFile(loc, level+1);
+      // const loc = location;
+      // console.log(loc);
+      // addFile(loc, level+1);
 
-      // for(let i = 0; i<=10000; i++){
-      //   if (location['folders'][i][`${inputValue}`]){
-      //     const loc = location['folders'][i][`${inputValue}`];
-      //     console.log(location['folders'][i]);
-      //     addFile(loc, level+1);
-      //     break;
-      //   }
-      // }
+      for(let i = 0; i<=10000; i++){
+        if (location['folders'][i][`${inputValue}`]){
+          const loc = location['folders'][i][`${inputValue}`];
+          console.log(location['folders'][i]);
+          addFile(loc, level+1);
+          break;
+        }
+      }
     });
 
     createFolderIcon.addEventListener('click', function(e){
