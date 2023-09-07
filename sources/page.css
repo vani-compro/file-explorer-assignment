@@ -4,7 +4,7 @@ body{
 }
 article{
   background-color: #252525;
-  width: 50%;
+  width: 100%;
   position: relative;
 }
 li{
@@ -20,11 +20,11 @@ ul{
 }
 .fa-folder-plus{
   position: absolute;
-  right: 0;
+  right: 20rem;
 }
 .fa-file-circle-plus{
   position: absolute;
-  right: 2rem;
+  right: 22rem;
 }
 button{
   background-color: transparent;
