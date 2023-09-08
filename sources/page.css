@@ -1,14 +1,18 @@
 body{
   background-color: #1F1F1F;
+  /* background-color: #2D4356; */
   color: #d6d6d6;
+  /* color:#EAB2A0; */
 }
 article{
   background-color: #252525;
-  width: 100%;
+  /* background-color: #435B66; */
+  width:75%;
   position: relative;
 }
 li{
   list-style: none;
+  margin: 0.25rem;
 }
 i{
   color: #d6d6d6;
@@ -20,18 +24,20 @@ ul{
 }
 .fa-folder-plus{
   position: absolute;
-  right: 20rem;
+  right: 10%;
 }
 .fa-file-circle-plus{
   position: absolute;
-  right: 22rem;
+  right: 15%;
 }
 button{
   background-color: transparent;
   border-style: none;
   color: #d6d6d6;
+  /* color: #EAB2A0; */
+  font-weight: 500;
   padding-left: 0;
-  /* margin-right: 10rem */
+  /* margin: 1rem */
 }
 nav > span{
   margin-left: 12rem;
@@ -42,4 +48,5 @@ nav > p{
 }
 form{
   display:inline;
+  /* margin: 1rem; */
 }
