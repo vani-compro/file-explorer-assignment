@@ -3,12 +3,16 @@ const file_structure = {
   folders: []
 }
 
-function buttonClicked(event, level, id){
-  console.log('buttonclicked() called for level: ' + level + " and event: ");
+function buttonClicked(event, id){
+  // console.log('buttonclicked() called for level: ' + level + " and event: ");
   console.log(event.target);
   const btn = event.target;
+  if (event.target === 'button'){
+    console.log('hey, it\'s me');
+  }else{
+    console.log('im the problem its me!');
+  }
 
-  // const ul = event.target.parentElement.parentElement.parentElement.parentElement;
   console.log('id: ' + id);
   //arrow down
   let arrow = document.querySelector('.arrows-'+id);
@@ -16,6 +20,9 @@ function buttonClicked(event, level, id){
   arrow.classList.toggle('fa-angle-down');
   const childUl = document.querySelector('#ul'+id);
   childUl.style.marginLeft='1rem';
+
+  //line 27-28 if else not required.
+
   if(!childUl){
   }else{
     if(arrow.classList.contains('fa-angle-right')){
@@ -27,10 +34,9 @@ function buttonClicked(event, level, id){
 }
 
 
-function addFile(location, level, listId){
-  const parentUl = (event.target.parentElement.parentElement);
+function addFile(location, listId){
+  const parentUl = (event.target.parentElement.parentElement); //parent li
   const ul = parentUl.querySelector('#ul'+listId);
-  // ul.style.marginLeft=`${level+1}rem`;
 
   const li = document.createElement('li');
 
@@ -60,19 +66,16 @@ function addFile(location, level, listId){
 
     let textnode = document.createTextNode(inputValue);
     li.appendChild(textnode);
-    li.classList.add('level'+(level+1));
+    // li.classList.add('level'+(level+1));
     fileNameForm.style.display = 'none';
     location['files'].push(`${inputValue}`);
   });
 }
 
-function addFolder(location, level, listId){
+function addFolder(location, listId){
 
-  const parentUl = (event.target.parentElement);
+  const parentUl = (event.target.parentElement); //parent li
   const ul = parentUl.querySelector('ul');
-  // ul.style.marginLeft='1rem';
-
-  console.log('folder created for level: ' + level);
 
   const li = document.createElement('li');
   listId = Math.ceil(Math.random()*10000);
@@ -110,10 +113,6 @@ function addFolder(location, level, listId){
   fileNameForm.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the form from submitting
 
-    const folderIcon2 = document.createElement("i");
-    folderIcon2.classList.add('fa-solid');
-    folderIcon2.classList.add('fa-folder');
-
     const inputValue = textbox.value;
 
     const folderListBtn = document.createElement('button');
@@ -128,9 +127,8 @@ function addFolder(location, level, listId){
     createFolderIcon.classList.add('fa-solid');
     createFolderIcon.classList.add('fa-folder-plus');
 
-
     folderListBtn.appendChild(arrow);
-    folderListBtn.appendChild(folderIcon2);
+    folderListBtn.appendChild(folderIcon);
     folderListBtn.appendChild(textnode);
     li.appendChild(folderListBtn);
     li.appendChild(createFileIcon);
@@ -141,11 +139,10 @@ function addFolder(location, level, listId){
     li.appendChild(childUl);
 
     folderListBtn.addEventListener('click', function(e){
-      buttonClicked(e, level+1, listId);
+      buttonClicked(e, listId);
     });
 
     fileNameForm.style.display = 'none';
-    folderIcon.style.display='none';
 
 
     let obj = {[`${inputValue}`] : {
@@ -158,7 +155,7 @@ function addFolder(location, level, listId){
       for(let i = 0; i<location['folders'].length; i++){
         if (location['folders'][i][`${inputValue}`]){
           const loc = location['folders'][i][`${inputValue}`];
-          addFile(loc, level+1, listId);
+          addFile(loc, listId);
           break;
         }
       }
@@ -168,7 +165,7 @@ function addFolder(location, level, listId){
       for(let i = 0; i<location['folders'].length; i++){
         if (location['folders'][i][`${inputValue}`]){
           const loc = location['folders'][i][`${inputValue}`];
-          addFolder(loc, level+1);
+          addFolder(loc, listId);
           break;
         }
       }
