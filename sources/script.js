@@ -72,20 +72,31 @@ function addFile(location, listId){
   });
 }
 
+
+function createArrow(id){
+  const arrow = document.createElement('i');
+  arrow.classList.add('fa-solid');
+  arrow.classList.add('fa-angle-right');
+  arrow.classList.add('arrows-'+(id));
+  return arrow;
+}
+
 function addFolder(location, listId){
 
   const parentUl = (event.target.parentElement); //parent li
-  const ul = parentUl.querySelector('ul');
+  const ul = parentUl.querySelector('ul'); // update this handling
 
   const li = document.createElement('li');
   listId = Math.ceil(Math.random()*10000);
   li.setAttribute('id', listId);
 
+  // creating an arrow btn
+  const arrowIcon = createArrow(listId);
 
-  const arrow = document.createElement('i');
-  arrow.classList.add('fa-solid');
-  arrow.classList.add('fa-angle-right');
-  arrow.classList.add('arrows-'+(listId));
+  // const arrow = document.createElement('i');
+  // arrow.classList.add('fa-solid');
+  // arrow.classList.add('fa-angle-right');
+  // arrow.classList.add('arrows-'+(listId));
 
   const folderIcon = document.createElement("i");
   folderIcon.classList.add('fa-solid');
