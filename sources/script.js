@@ -5,16 +5,16 @@ const file_structure = {
 
 function buttonClicked(event, level, id){
   console.log('buttonclicked() called for level: ' + level + " and event: ");
-  console.log(event);
+  console.log(event.target);
   const btn = event.target;
 
-  const ul = event.target.parentElement.parentElement.parentElement.parentElement;
+  // const ul = event.target.parentElement.parentElement.parentElement.parentElement;
   console.log('id: ' + id);
   //arrow down
   let arrow = document.querySelector('.arrows-'+id);
   arrow.classList.toggle('fa-angle-right');
   arrow.classList.toggle('fa-angle-down');
-  const childUl = ul.querySelector('#ul'+id);
+  const childUl = document.querySelector('#ul'+id);
   childUl.style.marginLeft='1rem';
   if(!childUl){
   }else{
