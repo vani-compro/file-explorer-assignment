@@ -4,7 +4,6 @@ const file_structure = {
 }
 
 function buttonClicked(event, id){
-  // console.log('buttonclicked() called for level: ' + level + " and event: ");
   console.log(event.target);
   const btn = event.target;
   if (event.target === 'button'){
@@ -21,22 +20,16 @@ function buttonClicked(event, id){
   const childUl = document.querySelector('#ul'+id);
   childUl.style.marginLeft='1rem';
 
-  //line 27-28 if else not required.
-
-  if(!childUl){
+  if(arrow.classList.contains('fa-angle-right')){
+    childUl.style.display='none';
   }else{
-    if(arrow.classList.contains('fa-angle-right')){
-      childUl.style.display='none';
-    }else{
-      childUl.style.display='block';
-    }
+    childUl.style.display='block';
   }
 }
 
 
 function addFile(location, listId){
-  const parentUl = (event.target.parentElement.parentElement); //parent li
-  const ul = parentUl.querySelector('#ul'+listId);
+  const ul = document.querySelector('#ul'+listId);
 
   const li = document.createElement('li');
 
@@ -66,12 +59,10 @@ function addFile(location, listId){
 
     let textnode = document.createTextNode(inputValue);
     li.appendChild(textnode);
-    // li.classList.add('level'+(level+1));
     fileNameForm.style.display = 'none';
     location['files'].push(`${inputValue}`);
   });
 }
-
 
 function createArrow(id){
   const arrow = document.createElement('i');
@@ -79,6 +70,27 @@ function createArrow(id){
   arrow.classList.add('fa-angle-right');
   arrow.classList.add('arrows-'+(id));
   return arrow;
+}
+
+function createFolderIcon(){
+  const folderIcon = document.createElement("i");
+  folderIcon.classList.add('fa-solid');
+  folderIcon.classList.add('fa-folder');
+  return folderIcon;
+}
+
+function createNewFileIcon(){
+  const createFileIcon = document.createElement('i');
+  createFileIcon.classList.add('fa-solid');
+  createFileIcon.classList.add('fa-file-circle-plus');
+  return createFileIcon;
+}
+
+function createNewFolderIcon(){
+  const createFolderIcon = document.createElement('i');
+  createFolderIcon.classList.add('fa-solid');
+  createFolderIcon.classList.add('fa-folder-plus');
+  return createFolderIcon;
 }
 
 function addFolder(location, listId){
@@ -91,16 +103,9 @@ function addFolder(location, listId){
   li.setAttribute('id', listId);
 
   // creating an arrow btn
-  const arrowIcon = createArrow(listId);
+  const arrow = createArrow(listId);
 
-  // const arrow = document.createElement('i');
-  // arrow.classList.add('fa-solid');
-  // arrow.classList.add('fa-angle-right');
-  // arrow.classList.add('arrows-'+(listId));
-
-  const folderIcon = document.createElement("i");
-  folderIcon.classList.add('fa-solid');
-  folderIcon.classList.add('fa-folder');
+  const folderIcon = createFolderIcon();
 
   const fileNameForm = document.createElement('form');
   fileNameForm.name='inputForm';
@@ -115,9 +120,6 @@ function addFolder(location, listId){
   fileNameForm.style.display='inline';
   li.appendChild(folderIcon);
   li.appendChild(fileNameForm);
-
-
-
   ul.appendChild(li);
 
   //on submit
@@ -130,13 +132,9 @@ function addFolder(location, listId){
 
     let textnode = document.createTextNode(inputValue);
 
-    const createFileIcon = document.createElement('i');
-    createFileIcon.classList.add('fa-solid');
-    createFileIcon.classList.add('fa-file-circle-plus');
+    const createFileIcon = createNewFileIcon();
 
-    const createFolderIcon = document.createElement('i');
-    createFolderIcon.classList.add('fa-solid');
-    createFolderIcon.classList.add('fa-folder-plus');
+    const createFolderIcon = createNewFolderIcon();
 
     folderListBtn.appendChild(arrow);
     folderListBtn.appendChild(folderIcon);
