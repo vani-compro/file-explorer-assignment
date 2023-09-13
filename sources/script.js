@@ -3,16 +3,7 @@ const file_structure = {
   folders: []
 }
 
-function buttonClicked(event, id){
-  console.log(event.target);
-  const btn = event.target;
-  if (event.target === 'button'){
-    console.log('hey, it\'s me');
-  }else{
-    console.log('im the problem its me!');
-  }
-
-  console.log('id: ' + id);
+function buttonClicked(id){
   //arrow down
   let arrow = document.querySelector('.arrows-'+id);
   arrow.classList.toggle('fa-angle-right');
@@ -27,8 +18,17 @@ function buttonClicked(event, id){
   }
 }
 
+function checkButtonClicked(id){
+  let arrow = document.querySelector('.arrows-'+id);
+  if (arrow.classList.contains('fa-angle-right')){
+    buttonClicked(id);
+  }
+}
 
 function addFile(location, listId){
+
+  checkButtonClicked(listId);
+
   const ul = document.querySelector('#ul'+listId);
 
   const li = document.createElement('li');
@@ -95,6 +95,8 @@ function createNewFolderIcon(){
 
 function addFolder(location, listId){
 
+  checkButtonClicked(listId);
+
   const parentUl = (event.target.parentElement); //parent li
   const ul = parentUl.querySelector('ul'); // update this handling
 
@@ -147,8 +149,8 @@ function addFolder(location, listId){
 
     li.appendChild(childUl);
 
-    folderListBtn.addEventListener('click', function(e){
-      buttonClicked(e, listId);
+    folderListBtn.addEventListener('click', function(){
+      buttonClicked(listId);
     });
 
     fileNameForm.style.display = 'none';
