@@ -3,7 +3,7 @@ html{
 }
 body{
   background-color: #1F1F1F;
-  color: hwb(0 84% 16%);
+  color: #d6d6d6;
   margin: 0;
 }
 article{
@@ -55,7 +55,7 @@ form > input{
 
 @font-face {
   font-family: 'NotoSans-Regular';
-  src: url('../assets/noto_sans/NotoSans-Regular.ttf') format('truetype');
+  src: url('../fonts/noto_sans/NotoSans-Regular.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
