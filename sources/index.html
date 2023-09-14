@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Explorer Assignment</title>
   <link rel="shortcut icon" href="../assets/file.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="page.css">
 </head>
-<body>
+<body class="NotoSans">
   <article>
     <ul id="level0">
       <li id="0">
-        <button onclick="buttonClicked(0)"><i id="icon" class="fa-solid fa-angle-right arrows-0" ></i>My File Name</button>
+        <button class="NotoSans" onclick="buttonClicked(0)"><i id="icon" class="fa-solid fa-angle-right arrows-0" ></i>My File Name</button>
         <i class="fa-solid fa-file-circle-plus" onclick="addFile(file_structure, 0)"></i>
         <i class="fa-solid fa-folder-plus" onclick="addFolder(file_structure, 0)"></i>
         <ul id="ul0"></ul>

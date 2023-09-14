@@ -1,12 +1,13 @@
+html{
+  margin:0;
+}
 body{
   background-color: #1F1F1F;
-  /* background-color: #2D4356; */
-  color: #d6d6d6;
-  /* color:#EAB2A0; */
+  color: hwb(0 84% 16%);
+  margin: 0;
 }
 article{
   background-color: #252525;
-  /* background-color: #435B66; */
   width:75%;
   position: relative;
 }
@@ -17,36 +18,48 @@ li{
 i{
   color: #d6d6d6;
   display: inline;
-  padding: 0.25rem;
+  padding: 0 0.25rem;
+  margin: 0.25rem;
+  font-size: medium;
 }
 ul{
   padding: 0;
+  margin-top: 0;
 }
 .fa-folder-plus{
   position: absolute;
-  right: 10%;
+  right: 1rem;
 }
 .fa-file-circle-plus{
   position: absolute;
-  right: 15%;
+  right: 4rem;
 }
 button{
   background-color: transparent;
   border-style: none;
   color: #d6d6d6;
-  /* color: #EAB2A0; */
-  font-weight: 500;
+  font-weight: 700;
   padding-left: 0;
-  /* margin: 1rem */
-}
-nav > span{
-  margin-left: 12rem;
-}
-nav > p{
-  display: inline-block;
-  margin: 0 1rem;
+  font-size: medium;
 }
 form{
   display:inline;
-  /* margin: 1rem; */
+}
+form > input{
+  font-size: medium;
+  margin: 0 0.15rem;
+  border-radius: 0.25rem;
+}
+
+/* fonts  */
+
+@font-face {
+  font-family: 'NotoSans-Regular';
+  src: url('../assets/noto_sans/NotoSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
+.NotoSans{
+  font-family: 'NotoSans-Regular', sans-serif;
 }

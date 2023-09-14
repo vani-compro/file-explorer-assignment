@@ -47,6 +47,8 @@ function addFile(location, listId){
   fileNameForm.appendChild(textbox);
   fileNameForm.appendChild(submitFileNameBtn);
   fileNameForm.style.display='inline';
+  fileNameForm.classList.add('NotoSans');
+
   li.appendChild(fileIcon);
   li.appendChild(fileNameForm);
   ul.appendChild(li);
@@ -116,6 +118,7 @@ function addFolder(location, listId){
   const submitFileNameBtn =  document.createElement('input');
   submitFileNameBtn.type='submit';
   submitFileNameBtn.value='Add';
+  fileNameForm.classList.add('NotoSans');
 
   fileNameForm.appendChild(textbox);
   fileNameForm.appendChild(submitFileNameBtn);
@@ -141,6 +144,7 @@ function addFolder(location, listId){
     folderListBtn.appendChild(arrow);
     folderListBtn.appendChild(folderIcon);
     folderListBtn.appendChild(textnode);
+    folderListBtn.classList.add('NotoSans');
     li.appendChild(folderListBtn);
     li.appendChild(createFileIcon);
     li.appendChild(createFolderIcon);
