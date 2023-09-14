@@ -80,8 +80,7 @@ function addFolder(location, listId){
 
   checkButtonClicked(listId);
 
-  const ul = document.querySelector('ul'); // update this handling
-
+  const ul = document.querySelector('ul');
   const li = document.createElement('li');
   listId = Math.ceil(Math.random()*10000);
   li.setAttribute('id', listId);
