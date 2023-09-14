@@ -66,33 +66,14 @@ function addFile(location, listId){
   });
 }
 
-function createArrow(id){
-  const arrow = document.createElement('i');
-  arrow.classList.add('fa-solid');
-  arrow.classList.add('fa-angle-right');
-  arrow.classList.add('arrows-'+(id));
-  return arrow;
-}
-
-function createFolderIcon(){
-  const folderIcon = document.createElement("i");
-  folderIcon.classList.add('fa-solid');
-  folderIcon.classList.add('fa-folder');
-  return folderIcon;
-}
-
-function createNewFileIcon(){
-  const createFileIcon = document.createElement('i');
-  createFileIcon.classList.add('fa-solid');
-  createFileIcon.classList.add('fa-file-circle-plus');
-  return createFileIcon;
-}
-
-function createNewFolderIcon(){
-  const createFolderIcon = document.createElement('i');
-  createFolderIcon.classList.add('fa-solid');
-  createFolderIcon.classList.add('fa-folder-plus');
-  return createFolderIcon;
+function createIcon(classToBeAdded, id=''){
+  const icon = document.createElement('i');
+  icon.classList.add('fa-solid');
+  icon.classList.add(classToBeAdded);
+  if (classToBeAdded === 'fa-angle-right'){
+    icon.classList.add('arrows-'+id);
+  }
+  return icon;
 }
 
 function addFolder(location, listId){
@@ -107,9 +88,9 @@ function addFolder(location, listId){
   li.setAttribute('id', listId);
 
   // creating an arrow btn
-  const arrow = createArrow(listId);
+  const arrow = createIcon('fa-angle-right', listId);
 
-  const folderIcon = createFolderIcon();
+  const folderIcon = createIcon('fa-folder');
 
   const fileNameForm = document.createElement('form');
   fileNameForm.name='inputForm';
@@ -137,9 +118,9 @@ function addFolder(location, listId){
 
     let textnode = document.createTextNode(inputValue);
 
-    const createFileIcon = createNewFileIcon();
+    const createFileIcon = createIcon('fa-file-circle-plus');
 
-    const createFolderIcon = createNewFolderIcon();
+    const createFolderIcon = createIcon('fa-folder-plus');
 
     folderListBtn.appendChild(arrow);
     folderListBtn.appendChild(folderIcon);
