@@ -25,6 +25,16 @@ function checkButtonClicked(id){
   }
 }
 
+function createIcon(classToBeAdded, id=''){
+  const icon = document.createElement('i');
+  icon.classList.add('fa-solid');
+  icon.classList.add(classToBeAdded);
+  if (classToBeAdded === 'fa-angle-right'){
+    icon.classList.add('arrows-'+id);
+  }
+  return icon;
+}
+
 function addFile(location, listId){
 
   checkButtonClicked(listId);
@@ -33,9 +43,7 @@ function addFile(location, listId){
 
   const li = document.createElement('li');
 
-  const fileIcon = document.createElement("i");
-  fileIcon.classList.add('fa-solid');
-  fileIcon.classList.add('fa-file');
+  const fileIcon = createIcon('fa-file');
 
   const fileNameForm = document.createElement('form');
   fileNameForm.name='inputForm';
@@ -64,16 +72,6 @@ function addFile(location, listId){
     fileNameForm.style.display = 'none';
     location['files'].push(`${inputValue}`);
   });
-}
-
-function createIcon(classToBeAdded, id=''){
-  const icon = document.createElement('i');
-  icon.classList.add('fa-solid');
-  icon.classList.add(classToBeAdded);
-  if (classToBeAdded === 'fa-angle-right'){
-    icon.classList.add('arrows-'+id);
-  }
-  return icon;
 }
 
 function addFolder(location, listId){
