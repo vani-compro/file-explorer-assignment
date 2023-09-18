@@ -35,6 +35,49 @@ function createIcon(classToBeAdded, id=''){
   return icon;
 }
 
+function checkEmpty(inputValue, what, inputForm){
+  if (!inputValue){
+    inputForm.classList.add('redForm');
+    setTimeout(function(){
+      inputForm.classList.remove('redForm');
+    }, 1000);
+    return false;
+  }
+  return true;
+}
+
+function checkExtension(inputValue, textbox){
+  let lastFiveChar = inputValue.slice(-5);
+  let ext='';
+  for(let i = 0; i < lastFiveChar.length; i++){
+    if(lastFiveChar[i] === '.'){
+      ext = lastFiveChar.slice(i);
+    }
+  }
+  if (ext==='.html' || ext==='.htm' || ext==='.txt' || ext==='.js' || ext ==='.css'){
+    return ext;
+  }else{
+    textbox.classList.add('redForm');
+    setTimeout(function(){
+      textbox.classList.remove('redForm');
+    }, 1000);
+
+    return false;
+  }
+}
+
+function getFileTypeIcon(fileType){
+  switch (fileType){
+    case '.html':
+    case '.htm':
+      return "fa-html5";
+    case '.css':
+      return "fa-css3-alt";
+    case '.js':
+      return "fa-square-js";
+  }
+}
+
 function addFile(location, listId){
 
   checkButtonClicked(listId);
@@ -49,6 +92,7 @@ function addFile(location, listId){
   fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
+  textbox.placeholder='file name';
   const submitFileNameBtn =  document.createElement('input');
   submitFileNameBtn.type='submit';
   submitFileNameBtn.value='Add';
@@ -67,10 +111,23 @@ function addFile(location, listId){
 
     const inputValue = textbox.value;
 
-    let textnode = document.createTextNode(inputValue);
-    li.appendChild(textnode);
-    fileNameForm.style.display = 'none';
-    location['files'].push(`${inputValue}`);
+    const checkEmptyFile = checkEmpty(inputValue, 'file', textbox);
+    const fileType = checkExtension(inputValue, textbox);
+
+    if (checkEmptyFile && fileType){
+      const fileTypeIcon = getFileTypeIcon(fileType);
+      let textnode = document.createTextNode(inputValue);
+      fileIcon.className='';
+      if(fileType==='.txt'){
+        fileIcon.classList.add('fa-regular', 'fa-file');
+      }else{
+        fileIcon.classList.add('fa-brands', fileTypeIcon);
+      }
+      li.appendChild(textnode);
+      fileNameForm.style.display = 'none';
+      location['files'].push(`${inputValue}`);
+    }
+
   });
 }
 
@@ -92,6 +149,7 @@ function addFolder(location, listId){
   fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
+  textbox.placeholder='folder name';
   const submitFileNameBtn =  document.createElement('input');
   submitFileNameBtn.type='submit';
   submitFileNameBtn.value='Add';
@@ -109,59 +167,61 @@ function addFolder(location, listId){
     event.preventDefault(); // Prevent the form from submitting
 
     const inputValue = textbox.value;
+    const checkEmptyFolder = checkEmpty(inputValue, 'folder', textbox);
 
-    const folderListBtn = document.createElement('button');
+    if(checkEmptyFolder){
+      const folderListBtn = document.createElement('button');
 
-    let textnode = document.createTextNode(inputValue);
+      let textnode = document.createTextNode(inputValue);
 
-    const createFileIcon = createIcon('fa-file-circle-plus');
+      const createFileIcon = createIcon('fa-file-circle-plus');
 
-    const createFolderIcon = createIcon('fa-folder-plus');
+      const createFolderIcon = createIcon('fa-folder-plus');
 
-    folderListBtn.appendChild(arrow);
-    folderListBtn.appendChild(folderIcon);
-    folderListBtn.appendChild(textnode);
-    folderListBtn.classList.add('NotoSans');
-    li.appendChild(folderListBtn);
-    li.appendChild(createFileIcon);
-    li.appendChild(createFolderIcon);
-    const childUl = document.createElement('ul');
-    childUl.setAttribute('id', 'ul'+listId);
+      folderListBtn.appendChild(arrow);
+      folderListBtn.appendChild(folderIcon);
+      folderListBtn.appendChild(textnode);
+      folderListBtn.classList.add('NotoSans');
+      li.appendChild(folderListBtn);
+      li.appendChild(createFileIcon);
+      li.appendChild(createFolderIcon);
+      const childUl = document.createElement('ul');
+      childUl.setAttribute('id', 'ul'+listId);
 
-    li.appendChild(childUl);
+      li.appendChild(childUl);
 
-    folderListBtn.addEventListener('click', function(){
-      buttonClicked(listId);
-    });
+      folderListBtn.addEventListener('click', function(){
+        buttonClicked(listId);
+      });
 
-    fileNameForm.style.display = 'none';
+      fileNameForm.style.display = 'none';
 
 
-    let obj = {[`${inputValue}`] : {
-      files:[],
-      folders:[]
-     }};
-    location["folders"].push(obj);
+      let obj = {[`${inputValue}`] : {
+        files:[],
+        folders:[]
+       }};
+      location["folders"].push(obj);
 
-    createFileIcon.addEventListener('click', function(e){
-      for(let i = 0; i<location['folders'].length; i++){
-        if (location['folders'][i][`${inputValue}`]){
-          const loc = location['folders'][i][`${inputValue}`];
-          addFile(loc, listId);
-          break;
+      createFileIcon.addEventListener('click', function(e){
+        for(let i = 0; i<location['folders'].length; i++){
+          if (location['folders'][i][`${inputValue}`]){
+            const loc = location['folders'][i][`${inputValue}`];
+            addFile(loc, listId);
+            break;
+          }
         }
-      }
-    });
+      });
 
-    createFolderIcon.addEventListener('click', function(e){
-      for(let i = 0; i<location['folders'].length; i++){
-        if (location['folders'][i][`${inputValue}`]){
-          const loc = location['folders'][i][`${inputValue}`];
-          addFolder(loc, listId);
-          break;
+      createFolderIcon.addEventListener('click', function(e){
+        for(let i = 0; i<location['folders'].length; i++){
+          if (location['folders'][i][`${inputValue}`]){
+            const loc = location['folders'][i][`${inputValue}`];
+            addFolder(loc, listId);
+            break;
+          }
         }
-      }
-    });
-
+      });
+    }
   });
 }

@@ -13,14 +13,17 @@ article{
 }
 li{
   list-style: none;
-  margin: 0.25rem;
+  margin: 0.40rem;
+  /* margin-left: 0; */
 }
 i{
-  color: #d6d6d6;
+  color: #b1b1b1;
   display: inline;
   padding: 0 0.25rem;
   margin: 0.25rem;
   font-size: medium;
+  margin-left: 0;
+  padding-left: 0;
 }
 ul{
   padding: 0;
@@ -50,6 +53,37 @@ form > input{
   margin: 0 0.15rem;
   border-radius: 0.25rem;
 }
+@keyframes shake {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-5px); }
+  20% { transform: translateX(5px); }
+  30% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  70% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  90% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.redForm{
+  border: 2px solid rgb(240, 0, 0);
+  animation: shake 1.5s ease-in-out infinite;
+}
+
+.fa-html5{
+  color: #F75421;
+}
+.fa-css3-alt{
+  color: #2194F0;
+}
+.fa-square-js{
+  color: #F7D800;
+}
+.fa-folder{
+  color: #aa7c40;
+}
+
 
 /* fonts  */
 
