@@ -13,8 +13,7 @@ article{
 }
 li{
   list-style: none;
-  margin: 0.40rem;
-  /* margin-left: 0; */
+  margin: 0.45rem;
 }
 i{
   color: #b1b1b1;
@@ -25,6 +24,14 @@ i{
   margin-left: 0;
   padding-left: 0;
 }
+/* span:hover{
+  background-color: #353535;
+}
+.hovered {
+  background-color: #353535; /* Change this to your desired hover effect styles
+  cursor: pointer;
+} */
+
 ul{
   padding: 0;
   margin-top: 0;
@@ -84,6 +91,16 @@ form > input{
   color: #aa7c40;
 }
 
+span{
+  display: inline-block;
+  width: 100px;
+  /* next 3 properties are imp for ellipsis  */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: -20%;
+  text-align: left;
+}
 
 /* fonts  */
 

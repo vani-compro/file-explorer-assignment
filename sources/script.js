@@ -41,17 +41,19 @@ function checkEmpty(inputValue, what, inputForm){
     setTimeout(function(){
       inputForm.classList.remove('redForm');
     }, 1000);
+    inputForm.title = 'Please add a name.';
     return false;
   }
   return true;
 }
 
 function checkExtension(inputValue, textbox){
-  let lastFiveChar = inputValue.slice(-5);
+  // let lastFiveChar = inputValue.slice(-5);
   let ext='';
-  for(let i = 0; i < lastFiveChar.length; i++){
-    if(lastFiveChar[i] === '.'){
-      ext = lastFiveChar.slice(i);
+  for(let i = 0; i < inputValue.length; i++){
+    if(inputValue[i] === '.'){
+      ext = inputValue.slice(i);
+      break;
     }
   }
   if (ext==='.html' || ext==='.htm' || ext==='.txt' || ext==='.js' || ext ==='.css'){
@@ -61,11 +63,30 @@ function checkExtension(inputValue, textbox){
     setTimeout(function(){
       textbox.classList.remove('redForm');
     }, 1000);
-
+    if(ext==='')
+      inputForm.title = 'Please add an extension.';
+    else
+      inputForm.title = 'Please add a valid extension.';
     return false;
   }
 }
 
+function checkSpecialCharacters(inputValue, textbox){
+  for (let i = 0 ; i < inputValue.length; i++){
+    console.log(inputValue.charCodeAt(i));
+    let letter = inputValue.charCodeAt(i);
+    if((letter >= 48 && letter <= 57) || (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122) || letter===45 || letter ===95 || letter===46){
+    }else{
+      textbox.classList.add('redForm');
+      setTimeout(function(){
+        textbox.classList.remove('redForm');
+      }, 1000);
+      inputForm.title = 'Please enter a valid name.';
+      return false;
+    }
+  }
+  return true;
+}
 function getFileTypeIcon(fileType){
   switch (fileType){
     case '.html':
@@ -113,17 +134,21 @@ function addFile(location, listId){
 
     const checkEmptyFile = checkEmpty(inputValue, 'file', textbox);
     const fileType = checkExtension(inputValue, textbox);
-
-    if (checkEmptyFile && fileType){
+    const checkSplCharacters = checkSpecialCharacters(inputValue, textbox);
+    // const checkSimilarName = checkSimilarName(inputValue, textbox, location);
+    if (checkEmptyFile && checkSplCharacters && fileType){
       const fileTypeIcon = getFileTypeIcon(fileType);
       let textnode = document.createTextNode(inputValue);
+      let textSpan = document.createElement('span');
+      textSpan.appendChild(textnode);
+      textSpan.title=inputValue;
       fileIcon.className='';
       if(fileType==='.txt'){
         fileIcon.classList.add('fa-regular', 'fa-file');
       }else{
         fileIcon.classList.add('fa-brands', fileTypeIcon);
       }
-      li.appendChild(textnode);
+      li.appendChild(textSpan);
       fileNameForm.style.display = 'none';
       location['files'].push(`${inputValue}`);
     }
@@ -139,6 +164,8 @@ function addFolder(location, listId){
   const li = document.createElement('li');
   listId = Math.ceil(Math.random()*10000);
   li.setAttribute('id', listId);
+
+  
 
   // creating an arrow btn
   const arrow = createIcon('fa-angle-right', listId);
@@ -168,11 +195,15 @@ function addFolder(location, listId){
 
     const inputValue = textbox.value;
     const checkEmptyFolder = checkEmpty(inputValue, 'folder', textbox);
+    const checkSplCharacters = checkSpecialCharacters(inputValue, textbox);
 
-    if(checkEmptyFolder){
+    if(checkEmptyFolder && checkSplCharacters){
       const folderListBtn = document.createElement('button');
 
       let textnode = document.createTextNode(inputValue);
+      let textSpan = document.createElement('span');
+      textSpan.appendChild(textnode);
+      textSpan.title=inputValue;
 
       const createFileIcon = createIcon('fa-file-circle-plus');
 
@@ -180,7 +211,7 @@ function addFolder(location, listId){
 
       folderListBtn.appendChild(arrow);
       folderListBtn.appendChild(folderIcon);
-      folderListBtn.appendChild(textnode);
+      folderListBtn.appendChild(textSpan);
       folderListBtn.classList.add('NotoSans');
       li.appendChild(folderListBtn);
       li.appendChild(createFileIcon);
