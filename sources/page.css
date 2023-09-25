@@ -90,10 +90,12 @@ form > input{
 .fa-folder{
   color: #aa7c40;
 }
-
+.hov:hover{
+  background-color: #454545;
+}
 span{
   display: inline-block;
-  width: 100px;
+  width: 6rem;
   /* next 3 properties are imp for ellipsis  */
   white-space: nowrap;
   overflow: hidden;
