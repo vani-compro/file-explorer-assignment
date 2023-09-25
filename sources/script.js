@@ -188,7 +188,7 @@ function addFile(location, listId){
   fileNameForm.style.display='inline';
   fileNameForm.classList.add('NotoSans');
   const cancelIcon = createIcon('fa-xmark');
-  cancelIcon.classList.add('cancel-icon');
+  cancelIcon.classList.add('new-icon');
   cancelIcon.addEventListener('click', function(event){
     cancelIconClicked('file', event);
   });
@@ -224,11 +224,21 @@ function addFile(location, listId){
       }
 
       li.removeChild(cancelIcon);
+
       li.appendChild(textSpan);
 
       const deleteIcon = createIcon('fa-trash');
-      deleteIcon.classList.add('cancel-icon');
+      deleteIcon.classList.add('new-icon');
       li.appendChild(deleteIcon);
+      deleteIcon.style.marginLeft='3rem';
+
+      const renameIcon = createIcon('fa-pencil');
+      // renameIcon.setAttribute('title', 'rename');
+      renameIcon.classList.add('new-icon');
+      li.appendChild(renameIcon);
+      renameIcon.style.marginLeft='1.5rem';
+
+
       deleteIcon.addEventListener('click', function(event){
         cancelIconClicked('file', location, inputValue, event);
       });
@@ -270,7 +280,7 @@ function addFolder(location, listId){
   fileNameForm.style.display='inline';
 
   const cancelIcon = createIcon('fa-xmark');
-  cancelIcon.classList.add('cancel-icon');
+  cancelIcon.classList.add('new-icon');
   cancelIcon.addEventListener('click', function(event){
     cancelIconClicked('folder', event);
   });
@@ -313,8 +323,14 @@ function addFolder(location, listId){
       li.appendChild(createFileIcon);
       li.appendChild(createFolderIcon);
       const deleteIcon = createIcon('fa-trash');
-      deleteIcon.classList.add('cancel-icon');
+      deleteIcon.classList.add('new-icon');
       li.appendChild(deleteIcon);
+
+      const renameIcon = createIcon('fa-pencil');
+      renameIcon.classList.add('new-icon');
+      li.appendChild(renameIcon);
+      renameIcon.style.marginLeft='1.5rem';
+
       deleteIcon.addEventListener('click', function(event){
         cancelIconClicked('folder', location, inputValue, event);
       });

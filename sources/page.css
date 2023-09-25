@@ -103,19 +103,24 @@ span{
   vertical-align: -20%;
   text-align: left;
 }
-.cancel-icon{
-  color: #d6d6d6;
-  /* background-color: #606060; */
+.new-icon{
   padding: 2px;
   margin: 4px;
   height: 1rem;
   width: 1rem;
   text-align: center;
   border-radius: 3px;
-  margin-right: -100rem;
 }
-.cancel-icon:hover{
-  background-color: #500500;
+.new-icon:hover{
+  background-color: #777;
+}
+.fa-trash{
+  position: absolute;
+  right: 8rem;
+}
+.fa-pencil{
+  position: absolute;
+  right: 12rem;
 }
 
 /* fonts  */
