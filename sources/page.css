@@ -91,7 +91,7 @@ form > input{
   color: #aa7c40;
 }
 .hov:hover{
-  background-color: #454545;
+  background-color: #353535;
 }
 span{
   display: inline-block;
@@ -102,6 +102,20 @@ span{
   text-overflow: ellipsis;
   vertical-align: -20%;
   text-align: left;
+}
+.cancel-icon{
+  color: #d6d6d6;
+  /* background-color: #606060; */
+  padding: 2px;
+  margin: 4px;
+  height: 1rem;
+  width: 1rem;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: -100rem;
+}
+.cancel-icon:hover{
+  background-color: #500500;
 }
 
 /* fonts  */

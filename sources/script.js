@@ -73,7 +73,7 @@ function checkExtension(inputValue, inputForm){
 
 function checkSpecialCharacters(inputValue, inputForm){
   for (let i = 0 ; i < inputValue.length; i++){
-    console.log(inputValue.charCodeAt(i));
+    // console.log(inputValue.charCodeAt(i));
     let letter = inputValue.charCodeAt(i);
     if((letter >= 48 && letter <= 57) || (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122) || letter===45 || letter ===95 || letter===46){
     }else{
@@ -130,11 +130,7 @@ function checkSimilarFileName(inputValue, location, inputForm, what){
         break;
       }
     }
-    // check = Object.keys(location.folders).includes(inputValue);
   }
-
-
-
   if(check){
     inputForm.classList.add('redForm');
     setTimeout(function(){
@@ -145,6 +141,15 @@ function checkSimilarFileName(inputValue, location, inputForm, what){
   return check;
 }
 
+cancelIconClicked = function(what, event){
+  console.log(event);
+  const li = event.target.parentElement;
+  console.log(li);
+  const correspondingUl = li.nextSibling;
+  if(what==='folder' && correspondingUl)
+    correspondingUl.remove();
+  li.remove();
+}
 function addFile(location, listId){
 
   checkButtonClicked(listId);
@@ -167,9 +172,15 @@ function addFile(location, listId){
   fileNameForm.appendChild(submitFileNameBtn);
   fileNameForm.style.display='inline';
   fileNameForm.classList.add('NotoSans');
+  const cancelIcon = createIcon('fa-xmark');
+  cancelIcon.classList.add('cancel-icon');
+  cancelIcon.addEventListener('click', function(event){
+    cancelIconClicked('file', event);
+  });
 
   li.appendChild(fileIcon);
   li.appendChild(fileNameForm);
+  li.appendChild(cancelIcon);
   li.classList.add('hov');
   ul.appendChild(li);
 
@@ -196,7 +207,16 @@ function addFile(location, listId){
       }else{
         fileIcon.classList.add('fa-brands', fileTypeIcon);
       }
+
+      li.removeChild(cancelIcon);
       li.appendChild(textSpan);
+
+      const deleteIcon = createIcon('fa-trash');
+      deleteIcon.classList.add('cancel-icon');
+      li.appendChild(deleteIcon);
+      deleteIcon.addEventListener('click', function(event){
+        cancelIconClicked('file', event);
+      });
       fileNameForm.style.display = 'none';
       location['files'].push(`${inputValue}`);
     }
@@ -233,8 +253,17 @@ function addFolder(location, listId){
   fileNameForm.appendChild(textbox);
   fileNameForm.appendChild(submitFileNameBtn);
   fileNameForm.style.display='inline';
+
+  const cancelIcon = createIcon('fa-xmark');
+  cancelIcon.classList.add('cancel-icon');
+  cancelIcon.addEventListener('click', function(event){
+    cancelIconClicked('folder', event);
+  });
+
+
   li.appendChild(folderIcon);
   li.appendChild(fileNameForm);
+  li.appendChild(cancelIcon);
   li.classList.add('hov');
   ul.appendChild(li);
 
@@ -264,9 +293,16 @@ function addFolder(location, listId){
       folderListBtn.appendChild(folderIcon);
       folderListBtn.appendChild(textSpan);
       folderListBtn.classList.add('NotoSans');
+      li.removeChild(cancelIcon);
       li.appendChild(folderListBtn);
       li.appendChild(createFileIcon);
       li.appendChild(createFolderIcon);
+      const deleteIcon = createIcon('fa-trash');
+      deleteIcon.classList.add('cancel-icon');
+      li.appendChild(deleteIcon);
+      deleteIcon.addEventListener('click', function(event){
+        cancelIconClicked('folder', event);
+      });
       const childUl = document.createElement('ul');
       childUl.setAttribute('id', 'ul'+listId);
       ul.appendChild(childUl); // li->doc
