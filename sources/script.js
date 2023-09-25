@@ -141,7 +141,7 @@ function checkSimilarFileName(inputValue, location, inputForm, what){
   return check;
 }
 
-cancelIconClicked = function(what, event){
+cancelIconClicked = function(what, location='', inputValue='', event){
   console.log(event);
   const li = event.target.parentElement;
   console.log(li);
@@ -149,6 +149,21 @@ cancelIconClicked = function(what, event){
   if(what==='folder' && correspondingUl)
     correspondingUl.remove();
   li.remove();
+  if(location !== ''){
+    //removing that file from file_structure
+    if(what==='file'){
+      location.files.splice(location.files.indexOf(`${inputValue}`), 1);
+      console.log(file_structure);
+    }else{
+      //removing that folder from file_structure
+      for(let i in location.folders){
+        if (Object.keys(location.folders[i])[0] === inputValue){
+          location.folders.splice(location.folders.indexOf(location.folders[i]), 1);
+        }
+      }
+      console.log(file_structure);
+    }
+  }
 }
 function addFile(location, listId){
 
@@ -215,7 +230,7 @@ function addFile(location, listId){
       deleteIcon.classList.add('cancel-icon');
       li.appendChild(deleteIcon);
       deleteIcon.addEventListener('click', function(event){
-        cancelIconClicked('file', event);
+        cancelIconClicked('file', location, inputValue, event);
       });
       fileNameForm.style.display = 'none';
       location['files'].push(`${inputValue}`);
@@ -301,7 +316,7 @@ function addFolder(location, listId){
       deleteIcon.classList.add('cancel-icon');
       li.appendChild(deleteIcon);
       deleteIcon.addEventListener('click', function(event){
-        cancelIconClicked('folder', event);
+        cancelIconClicked('folder', location, inputValue, event);
       });
       const childUl = document.createElement('ul');
       childUl.setAttribute('id', 'ul'+listId);
