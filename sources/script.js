@@ -141,7 +141,7 @@ function checkSimilarFileName(inputValue, location, inputForm, what){
   return check;
 }
 
-cancelIconClicked = function(what, location='', inputValue='', event){
+cancelIconClicked = function(what, event, location='', inputValue=''){
   console.log(event);
   const li = event.target.parentElement;
   console.log(li);
@@ -240,7 +240,7 @@ function addFile(location, listId){
 
 
       deleteIcon.addEventListener('click', function(event){
-        cancelIconClicked('file', location, inputValue, event);
+        cancelIconClicked('file', event, location, inputValue);
       });
       fileNameForm.style.display = 'none';
       location['files'].push(`${inputValue}`);
@@ -332,7 +332,7 @@ function addFolder(location, listId){
       renameIcon.style.marginLeft='1.5rem';
 
       deleteIcon.addEventListener('click', function(event){
-        cancelIconClicked('folder', location, inputValue, event);
+        cancelIconClicked('folder', event, location, inputValue);
       });
       const childUl = document.createElement('ul');
       childUl.setAttribute('id', 'ul'+listId);
