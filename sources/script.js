@@ -287,14 +287,8 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
         });
         fileNameForm.remove(); //file name form removed
 
-          // fileIcon.classList.remove('fa-file');
-
-
-
-
         const indexToBeChanged = location['files'].indexOf(initialInputValue);
         location['files'][indexToBeChanged] = `${inputValue}`;
-        // console.log(file_structure);
       }
     });
   }
@@ -455,8 +449,10 @@ function addFolder(location, listId){
       textSpan.title=inputValue;
 
       const createFileIcon = createIcon('fa-file-circle-plus');
+      createFileIcon.classList.add('new-icon');
 
       const createFolderIcon = createIcon('fa-folder-plus');
+      createFolderIcon.classList.add('new-icon');
 
       folderListBtn.appendChild(arrow);
       folderListBtn.appendChild(folderIcon);
