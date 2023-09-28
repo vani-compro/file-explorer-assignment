@@ -233,7 +233,7 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
             i.remove();
           }, 1);
         }
-        const fileIcon = createIcon('fa-file'); debugger
+        const fileIcon = createIcon('fa-file');
         console.log(fileIcon);
         const fileTypeIcon = getFileTypeIcon(fileType);
         let textnode = document.createTextNode(inputValue);
@@ -325,6 +325,124 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
     li.appendChild(cancelIcon);
     li.classList.add('hov');
     // ul.appendChild(li);
+
+    fileNameForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the form from submitting
+
+      const inputValue = textbox.value;
+      const checkEmptyFolder = checkEmpty(inputValue, 'folder', textbox);
+      const checkSplCharacters = checkSpecialCharacters(inputValue, textbox);
+      const checkSimilarName = checkSimilarFileName(inputValue, location, textbox, 'folders');
+
+
+      if(checkEmptyFolder && checkSplCharacters && !checkSimilarName){
+
+        for(let i of li.children){
+          setTimeout(() => {
+            i.remove();
+          }, 1);
+        }
+
+        const folderListBtn = document.createElement('button');
+
+        let textnode = document.createTextNode(inputValue);
+        let textSpan = document.createElement('span');
+        textSpan.classList.add('nameSpan');
+        textSpan.appendChild(textnode);
+        textSpan.title=inputValue;
+
+        const createFileIcon = createIcon('fa-file-circle-plus');
+        createFileIcon.classList.add('new-icon');
+
+        const createFolderIcon = createIcon('fa-folder-plus');
+        createFolderIcon.classList.add('new-icon');
+
+        folderListBtn.appendChild(arrow);
+        folderListBtn.appendChild(folderIcon);
+        folderListBtn.appendChild(textSpan);
+        folderListBtn.classList.add('NotoSans');
+        li.removeChild(cancelIcon);
+        li.appendChild(folderListBtn);
+        li.appendChild(createFileIcon);
+        li.appendChild(createFolderIcon);
+
+
+        const renameIcon = createIcon('fa-pencil');
+        renameIcon.classList.add('new-icon');
+        li.appendChild(renameIcon);
+        renameIcon.style.marginLeft='1.5rem';
+
+        const deleteIcon = createIcon('fa-trash');
+        deleteIcon.classList.add('new-icon');
+        li.appendChild(deleteIcon);
+
+        deleteIcon.addEventListener('click', function(event){
+          cancelIconClicked('folder', event, location, inputValue);
+        });
+
+        renameIcon.addEventListener('click', function(event){
+          renameIconClicked('folder', event, location, inputValue, listId);
+        });
+
+        const childUl = document.createElement('ul');
+        childUl.setAttribute('id', 'ul'+listId);
+        ul.appendChild(childUl); // li->doc
+
+        folderListBtn.addEventListener('click', function(){
+          buttonClicked(listId);
+        });
+
+        fileNameForm.remove(); //file name form removed
+
+        // TODO: change objects name in file_structure
+
+        // // let obj = {[`${inputValue}`] : {
+        // //   files:[],
+        // //   folders:[]
+        // //  }};
+        // // location["folders"].push(obj);
+
+        // // console.log(location['folders']);
+        // // for(let i of location['folders']){
+        // //   console.log(Object.keys(i)[0]);
+        // //   if(initialInputValue === Object.keys(i)[0]){
+        // //     // let
+        // //     i[`${initialInputValue}`] = inputValue;
+        // //     console.log(location['folders']);
+        // //     break;
+        // //   }
+        // // }
+
+        // // let newFolder = {
+        // //   `${inputValue}`:
+        // // }
+
+        // // const indexToBeChanged = location['folders'].indexOf(initialInputValue);
+        // // location['files'][indexToBeChanged] = `${inputValue}`;
+
+        createFileIcon.addEventListener('click', function(e){
+          for(let i = 0; i<location['folders'].length; i++){
+            if (location['folders'][i][`${inputValue}`]){
+              const loc = location['folders'][i][`${inputValue}`];
+              addFile(loc, listId);
+              break;
+            }
+          }
+        });
+
+        createFolderIcon.addEventListener('click', function(e){
+          for(let i = 0; i<location['folders'].length; i++){
+            if (location['folders'][i][`${inputValue}`]){
+              const loc = location['folders'][i][`${inputValue}`];
+              addFolder(loc, listId);
+              break;
+            }
+          }
+        });
+
+        // console.log(file_structure);
+      }
+    });
   }
 }
 
