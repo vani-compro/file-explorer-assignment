@@ -345,6 +345,7 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
 
         const folderListBtn = document.createElement('button');
 
+        const folderIcon = createIcon('fa-folder');
         let textnode = document.createTextNode(inputValue);
         let textSpan = document.createElement('span');
         textSpan.classList.add('nameSpan');
@@ -362,6 +363,7 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
         folderListBtn.appendChild(textSpan);
         folderListBtn.classList.add('NotoSans');
         li.removeChild(cancelIcon);
+        li.appendChild(folderIcon);
         li.appendChild(folderListBtn);
         li.appendChild(createFileIcon);
         li.appendChild(createFolderIcon);
