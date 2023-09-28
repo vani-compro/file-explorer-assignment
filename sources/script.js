@@ -166,21 +166,19 @@ cancelIconClicked = function(what, event, location='', inputValue=''){
   }
 }
 
-function renameCancelled(what, event){
-    const li = event.target.parentElement;
-    const liChildrenArray = [...li.children];
-    if(what === 'file'){
-      for(let child of liChildrenArray){
-        if(child.classList.contains('newFileIcon') || child.classList.contains('newFolderIcon') || child.classList.contains('form') || child.classList.contains('fa-xmark')){
-          li.removeChild(child);
-        }else{
-          child.style.display='inline';
-        }
-      }
+function renameCancelled(event){
+  const li = event.target.parentElement;
+  const liChildrenArray = [...li.children];
+  for(let child of liChildrenArray){
+    if(child.classList.contains('newFileIcon') || child.classList.contains('newFolderIcon') || child.classList.contains('form') || child.classList.contains('fa-xmark')){
+      li.removeChild(child);
     }else{
-
+      child.style.display='inline';
     }
+  }
+
 }
+
 
 renameIconClicked = function(what, event, location, initialInputValue, listId){
   const li = event.target.parentElement;
@@ -210,7 +208,7 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
     const cancelIcon = createIcon('fa-xmark');
     cancelIcon.classList.add('new-icon');
     cancelIcon.addEventListener('click', function(e){
-      renameCancelled('file', e);
+      renameCancelled(e);
     });
     li.appendChild(fileIcon);
     li.appendChild(fileNameForm);
@@ -318,7 +316,7 @@ renameIconClicked = function(what, event, location, initialInputValue, listId){
     const cancelIcon = createIcon('fa-xmark');
     cancelIcon.classList.add('new-icon');
     cancelIcon.addEventListener('click', function(e){
-      renameCancelled('file', e);
+      renameCancelled(e);
     });
 
 
