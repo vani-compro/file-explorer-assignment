@@ -18,19 +18,10 @@ li{
 i{
   color: #b1b1b1;
   display: inline;
-  padding: 0 0.25rem;
-  margin: 0.25rem;
+  padding-right: 0.25rem;
+  margin-right: 0.25rem;
   font-size: medium;
-  margin-left: 0;
-  padding-left: 0;
 }
-/* span:hover{
-  background-color: #353535;
-}
-.hovered {
-  background-color: #353535; /* Change this to your desired hover effect styles
-  cursor: pointer;
-} */
 
 ul{
   padding: 0;
@@ -100,8 +91,9 @@ span{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: -20%;
+  vertical-align: -10%;
   text-align: left;
+  /* font-size: medium; */
 }
 .new-icon{
   padding: 2px;

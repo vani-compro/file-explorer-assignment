@@ -73,7 +73,7 @@ function checkExtension(inputValue, inputForm){
 
 function checkSpecialCharacters(inputValue, inputForm){
   for (let i = 0 ; i < inputValue.length; i++){
-    // console.log(inputValue.charCodeAt(i));
+    // // console.log(inputValue.charCodeAt(i));
     let letter = inputValue.charCodeAt(i);
     if((letter >= 48 && letter <= 57) || (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122) || letter===45 || letter ===95 || letter===46){
     }else{
@@ -142,9 +142,9 @@ function checkSimilarFileName(inputValue, location, inputForm, what){
 }
 
 cancelIconClicked = function(what, event, location='', inputValue=''){
-  console.log(event);
+  // console.log(event);
   const li = event.target.parentElement;
-  console.log(li);
+  // console.log(li);
   const correspondingUl = li.nextSibling;
   if(what==='folder' && correspondingUl)
     correspondingUl.remove();
@@ -153,7 +153,7 @@ cancelIconClicked = function(what, event, location='', inputValue=''){
     //removing that file from file_structure
     if(what==='file'){
       location.files.splice(location.files.indexOf(`${inputValue}`), 1);
-      console.log(file_structure);
+      // console.log(file_structure);
     }else{
       //removing that folder from file_structure
       for(let i in location.folders){
@@ -161,10 +161,145 @@ cancelIconClicked = function(what, event, location='', inputValue=''){
           location.folders.splice(location.folders.indexOf(location.folders[i]), 1);
         }
       }
-      console.log(file_structure);
+      // console.log(file_structure);
     }
   }
 }
+
+function renameCancelled(event){
+  // console.log(event);
+  // setTimeout(() => {
+    const li = event.target.parentElement;
+    const liChildrenArray = [...li.children];
+    for(let child of liChildrenArray){
+      // console.log(child)
+    // fileIcon.classList.add('newfileIcon');
+      if(child.classList.contains('newfileIcon') || child.classList.contains('form') || child.classList.contains('fa-xmark')){
+        // console.log("inside condition", child);
+        // console.log("inside condition li", li);
+        li.removeChild(child);
+        // child.style.display="none";
+      }else{
+        child.style.display='inline';
+      }
+    }
+  // }, 1);
+  // // console.log(file_structure);
+}
+
+renameIconClicked = function(what, event, location, initialInputValue, listId){
+  if(what === 'file'){
+    const li = event.target.parentElement;
+    const ul = li.parentElement;
+    for(let i of li.children){
+      // // console.log(i);
+      setTimeout(() => {
+        i.style.display='none';
+      }, 1);
+    }
+
+    const fileIcon = createIcon('fa-file');
+    fileIcon.classList.add('newfileIcon');
+    const fileNameForm = document.createElement('form');
+    fileNameForm.classList.add('form');
+    fileNameForm.name='inputForm';
+    const textbox = document.createElement('input');
+    textbox.type='text';
+    textbox.placeholder='file name';
+    const submitFileNameBtn =  document.createElement('input');
+    submitFileNameBtn.type='submit';
+    submitFileNameBtn.value='Add';
+    fileNameForm.appendChild(textbox);
+    fileNameForm.appendChild(submitFileNameBtn);
+    fileNameForm.style.display='inline';
+    fileNameForm.classList.add('NotoSans');
+    const cancelIcon = createIcon('fa-xmark');
+    cancelIcon.classList.add('new-icon');
+    cancelIcon.addEventListener('click', function(e){
+      renameCancelled(e);
+    });
+    li.appendChild(fileIcon);
+    li.appendChild(fileNameForm);
+    li.appendChild(cancelIcon);
+    li.classList.add('hov');
+
+    fileNameForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the form from submitting
+
+      const inputValue = textbox.value;
+
+      const checkEmptyFile = checkEmpty(inputValue, 'file', textbox);
+      const fileType = checkExtension(inputValue, textbox);
+      const checkSplCharacters = checkSpecialCharacters(inputValue, textbox);
+      const checkSimilarName = checkSimilarFileName(inputValue, location, textbox, 'files');
+
+      if (checkEmptyFile && checkSplCharacters && fileType && !checkSimilarName){
+        // let fileIcon = createIcon();
+
+        for(let i of li.children){
+          setTimeout(() => {
+            i.remove();
+          }, 1);
+        }
+        const fileIcon = createIcon('fa-file'); debugger
+        console.log(fileIcon);
+        const fileTypeIcon = getFileTypeIcon(fileType);
+        let textnode = document.createTextNode(inputValue);
+        let textSpan = document.createElement('span');
+        textSpan.classList.add('nameSpan');
+        textSpan.appendChild(textnode);
+        textSpan.title=inputValue;
+        // fileIcon.className='';
+        if(fileType==='.txt'){
+          fileIcon.classList.remove('fa-solid');
+          fileIcon.classList.add('fa-regular', 'fa-file');
+          console.log(fileIcon);
+        }else{
+          // fileIcon.classList.remove('fa-file');
+          fileIcon.classList.add('fa-brands');
+          fileIcon.classList.add(fileTypeIcon);
+        }
+
+        li.removeChild(cancelIcon);
+
+        li.appendChild(fileIcon);
+        li.appendChild(textSpan);
+
+        const renameIcon = createIcon('fa-pencil');
+        renameIcon.setAttribute('title', 'rename');
+        renameIcon.classList.add('new-icon');
+        li.appendChild(renameIcon);
+        renameIcon.style.marginLeft='1.5rem';
+
+        const deleteIcon = createIcon('fa-trash');
+        deleteIcon.setAttribute('title', 'delete');
+        deleteIcon.classList.add('new-icon');
+        li.appendChild(deleteIcon);
+        deleteIcon.style.marginLeft='3rem';
+
+
+        renameIcon.addEventListener('click', function(event){
+          renameIconClicked('file', event, location, inputValue, listId);
+        });
+
+        deleteIcon.addEventListener('click', function(event){
+          cancelIconClicked('file', event, location, inputValue);
+        });
+        fileNameForm.remove(); //file name form removed
+
+          // fileIcon.classList.remove('fa-file');
+
+
+
+
+        const indexToBeChanged = location['files'].indexOf(initialInputValue);
+        location['files'][indexToBeChanged] = `${inputValue}`;
+        // console.log(file_structure);
+      }
+    });
+  }
+}
+
 function addFile(location, listId){
 
   checkButtonClicked(listId);
@@ -176,6 +311,7 @@ function addFile(location, listId){
   const fileIcon = createIcon('fa-file');
 
   const fileNameForm = document.createElement('form');
+  fileNameForm.classList.add('form');
   fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
@@ -199,6 +335,7 @@ function addFile(location, listId){
   li.classList.add('hov');
   ul.appendChild(li);
 
+
   //on submit
   fileNameForm.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the form from submitting
@@ -214,11 +351,12 @@ function addFile(location, listId){
       const fileTypeIcon = getFileTypeIcon(fileType);
       let textnode = document.createTextNode(inputValue);
       let textSpan = document.createElement('span');
+      textSpan.classList.add('nameSpan');
       textSpan.appendChild(textnode);
       textSpan.title=inputValue;
       fileIcon.className='';
       if(fileType==='.txt'){
-        fileIcon.classList.add('fa-regular', 'fa-file');
+        fileIcon.classList.add('fa-regular', 'fa-file'); debugger
       }else{
         fileIcon.classList.add('fa-brands', fileTypeIcon);
       }
@@ -227,25 +365,29 @@ function addFile(location, listId){
 
       li.appendChild(textSpan);
 
-      const deleteIcon = createIcon('fa-trash');
-      deleteIcon.classList.add('new-icon');
-      li.appendChild(deleteIcon);
-      deleteIcon.style.marginLeft='3rem';
-
       const renameIcon = createIcon('fa-pencil');
       // renameIcon.setAttribute('title', 'rename');
       renameIcon.classList.add('new-icon');
       li.appendChild(renameIcon);
       renameIcon.style.marginLeft='1.5rem';
 
+      const deleteIcon = createIcon('fa-trash');
+      deleteIcon.classList.add('new-icon');
+      li.appendChild(deleteIcon);
+      deleteIcon.style.marginLeft='3rem';
+
+
+      renameIcon.addEventListener('click', function(event){
+        renameIconClicked('file', event, location, inputValue, listId);
+      });
 
       deleteIcon.addEventListener('click', function(event){
         cancelIconClicked('file', event, location, inputValue);
       });
-      fileNameForm.style.display = 'none';
+      fileNameForm.remove(); //file name form removed
       location['files'].push(`${inputValue}`);
     }
-
+    // return li;
   });
 }
 
@@ -266,6 +408,7 @@ function addFolder(location, listId){
   const folderIcon = createIcon('fa-folder');
 
   const fileNameForm = document.createElement('form');
+  fileNameForm.classList.add('form');
   fileNameForm.name='inputForm';
   const textbox = document.createElement('input');
   textbox.type='text';
@@ -307,6 +450,7 @@ function addFolder(location, listId){
 
       let textnode = document.createTextNode(inputValue);
       let textSpan = document.createElement('span');
+      textSpan.classList.add('nameSpan');
       textSpan.appendChild(textnode);
       textSpan.title=inputValue;
 
@@ -322,18 +466,25 @@ function addFolder(location, listId){
       li.appendChild(folderListBtn);
       li.appendChild(createFileIcon);
       li.appendChild(createFolderIcon);
-      const deleteIcon = createIcon('fa-trash');
-      deleteIcon.classList.add('new-icon');
-      li.appendChild(deleteIcon);
+
 
       const renameIcon = createIcon('fa-pencil');
       renameIcon.classList.add('new-icon');
       li.appendChild(renameIcon);
       renameIcon.style.marginLeft='1.5rem';
 
+      const deleteIcon = createIcon('fa-trash');
+      deleteIcon.classList.add('new-icon');
+      li.appendChild(deleteIcon);
+
       deleteIcon.addEventListener('click', function(event){
         cancelIconClicked('folder', event, location, inputValue);
       });
+
+      renameIcon.addEventListener('click', function(event){
+        renameIconClicked('folder', event, location, inputValue, listId);
+      });
+
       const childUl = document.createElement('ul');
       childUl.setAttribute('id', 'ul'+listId);
       ul.appendChild(childUl); // li->doc
@@ -342,8 +493,7 @@ function addFolder(location, listId){
         buttonClicked(listId);
       });
 
-      fileNameForm.style.display = 'none';
-
+      fileNameForm.remove(); //file name form removed
 
       let obj = {[`${inputValue}`] : {
         files:[],
@@ -371,7 +521,7 @@ function addFolder(location, listId){
         }
       });
 
-      console.log(file_structure);
+      // console.log(file_structure);
     }
   });
 }
