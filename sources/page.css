@@ -91,7 +91,7 @@ span{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: -10%;
+  vertical-align: -11%;
   text-align: left;
   /* font-size: medium; */
 }
